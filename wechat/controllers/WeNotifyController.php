@@ -8,24 +8,27 @@ use common\helpers\FileHelper;
 
 /**
  * 微信支付回调控制器
+ *
  * Class WeNotifyController
  * @package wechat\controllers
  */
-class WeNotifyController extends Controller
+class WeNotifyController extends WController
 {
     /**
      * 回调通知
+     *
      * @return mixed
      */
     public function actionNotify()
     {
-        $response = $this->_app->payment->handleNotify(function($notify, $successful)
+        $payment = Yii::$app->wechat->payment;
+        $response = $payment->handlePaidNotify(function($notify, $successful)
         {
             //记录写入日志
-            $logFolder = Yii::getAlias('@wechat')."/runtime/pay_log/".date('Y_m_d')."/";
+            $logFolder = Yii::getAlias('@wechat') . "/runtime/pay_log/" . date('Y_m_d') . "/";
             //创建日志目录
             FileHelper::mkdirs($logFolder);
-            FileHelper::writeLog($logFolder.$notify->openid.'.txt',json_encode(ArrayHelper::toArray($notify)));
+            FileHelper::writeLog($logFolder . $notify->openid . '.txt',json_encode(ArrayHelper::toArray($notify)));
 
             // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
             //$notify->out_trade_no;

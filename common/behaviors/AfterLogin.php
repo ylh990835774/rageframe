@@ -7,6 +7,7 @@ use yii\web\User;
 
 /**
  * 登陆后的行为
+ *
  * Class AfterLogin
  * @package common\behaviors
  */
@@ -16,6 +17,7 @@ class AfterLogin extends Behavior
      * @var int
      */
     public $attribute = 'logged_at';
+
     /**
      * {@inheritdoc}
      */
@@ -27,16 +29,18 @@ class AfterLogin extends Behavior
     }
 
     /**
-     * @param \yii\web\UserEvent $event
+     * 登录事件
+     *
+     * @param $event
+     * @return mixed
      */
     public function afterLogin($event)
     {
         $model = $event->identity;
-
         $model->visit_count += 1;;
         $model->last_time = time();
-        $model->last_ip = Yii::$app->getRequest()->getUserIP();
+        $model->last_ip = Yii::$app->request->getUserIP();
 
-        return $model->save() ? true : false;
+        return $model->save();
     }
 }

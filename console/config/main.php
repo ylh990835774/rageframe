@@ -8,9 +8,17 @@ $params = array_merge(
 return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log'
+    ],
     'controllerNamespace' => 'console\controllers',
     'components' => [
+        'redis'      => [
+            'class'          => 'yii\redis\Connection',
+            'hostname'       => 'localhost',
+            'port'           => 6379,
+            'database'       => 0,
+        ],
         'log' =>[
             # 追踪级别
             # 消息跟踪级别
@@ -47,8 +55,25 @@ return [
             'class' => 'denisog\cronjobs\CronController'
         ],
         //数据库命令行备份
-        'migrates' => [
+        'migrate' => [
             'class' => 'e282486518\migration\ConsoleController',
+        ],
+        // webSocket
+        'websocket' => [
+            'class' => 'jianyan\websocket\console\WebSocketController',
+            'server' => 'jianyan\websocket\server\WebSocketServer',
+            'host' => '0.0.0.0',// 监听地址
+            'port' => 9501,// 监听端口
+            'type' => 'wss', // 默认为ws连接，可修改为wss
+            'config' => [// 标准的swoole配置项都可以再此加入
+                'daemonize' => false,// 守护进程执行
+                'task_worker_num' => 4,//task进程的数量
+                'ssl_cert_file' => '/etc/letsencrypt/live/www.yllook.com/fullchain.pem',
+                'ssl_key_file' => '/etc/letsencrypt/live/www.yllook.com/privkey.pem',
+                'pid_file' => __DIR__ . '/../../backend/runtime/logs/server.pid',
+                'log_file' => __DIR__ . '/../../backend/runtime/logs/swoole.log',
+                'log_level' => 0,
+            ],
         ],
     ],
     'params' => $params,

@@ -1,56 +1,56 @@
 <?php
 return [
-    'adminEmail'      => '751393839@qq.com',
-    'supportEmail'    => '751393839@qq.com',
+    'adminEmail' => 'admin@example.com',
+    'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
-
-    //推荐位
+    // 推荐位
     'recommend' => [
         '1'    => "首页",
         '2'    => "列表",
         '4'    => "内页",
     ],
 
-    /**-------------------上传配置--------------------**/
+    /** ------ 上传配置 ------ **/
 
-    //百度编辑器
-    'ueditorConfig' => [
-        'class' => 'kucha\ueditor\UEditorAction',
-        'config' => [
-            //图片
-            "imageUrlPrefix"  => Yii::getAlias("@attachurl"),//图片访问路径前缀
-            "imagePathFormat" => "/upload/image/{yyyy}/{mm}/{dd}/{time}{rand:6}", //上传保存路径
-            "imageRoot"       => Yii::getAlias("@attachment"),//根目录地址
-            //视频
-            "videoUrlPrefix"  => Yii::getAlias("@attachurl"),
-            "videoPathFormat" => "/upload/video/{yyyy}/{mm}/{dd}/{time}{rand:6}",
-            "videoRoot"       => Yii::getAlias("@attachment"),
-            //文件
-            "fileUrlPrefix"  => Yii::getAlias("@attachurl"),
-            "filePathFormat" => "/upload/file/{yyyy}/{mm}/{dd}/{time}{rand:6}",
-            "fileRoot"       => Yii::getAlias("@attachment"),
-            //涂鸦
-            "scrawlUrlPrefix"  => Yii::getAlias("@attachurl"),
-            "scrawlPathFormat" => "/upload/file/{yyyy}/{mm}/{dd}/{time}{rand:6}",
-            "scrawlRoot"       => Yii::getAlias("@attachment"),
-        ],
-    ],
+    // 默认上传文件路由
+    'uploadDefaultFileUrl' => '',
+    // 默认上传图片路由
+    'uploadDefaultImageUrl' => '',
 
-    //图片上传
+    // 图片上传配置
     'imagesUpload' => [
-        'imgMaxSize'    => 2097152,//图片最大上传大小,默认2M
-        'imgMaxExc'     => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],//后缀
-        'imgPath'       => 'images/',//图片创建路径
-        'imgThumbPath'  => 'thumb/',//图片创建缩略图路径
-        'imgSubName'    => 'Y/m-d',//图片上传子目录规则
-        'imgPrefix'     => 'img_',//图片名称前缀
+        'maxSize'    => 1024 * 1024 * 2,// 图片最大上传大小,默认2M
+        'maxExc'     => [".png", ".jpg", ".jpeg", ".gif", ".bmp"],// 可上传图片后缀不填写即为不限
+        'path'       => 'images/',// 图片创建路径
+        'thumbPath'  => 'thumb/',// 图片创建缩略图路径
+        'subName'    => 'Y/m/d',// 图片上传子目录规则
+        'prefix'     => 'image_',// 图片名称前缀
     ],
-
-    //文件上传
-    'fileUpload' => [
+    // 视频上传配置
+    'videosUpload' => [
+        'maxSize'    => 1024 * 1024 * 10,// 最大上传大小,默认10M
+        'maxExc'     => ['.mp4'],// 可上传文件后缀不填写即为不限
+        'path'       => 'videos/',// 创建路径
+        'subName'    => 'Y/m/d',// 上传子目录规则
+        'prefix'     => 'video_',// 名称前缀
     ],
-
-    //上传状态映射表
+    // 语音上传配置
+    'voicesUpload' => [
+        'maxSize'    => 1024 * 1024 * 50,// 最大上传大小,默认50M
+        'maxExc'     => ['.amr', '.mp3'],// 可上传文件后缀不填写即为不限
+        'path'       => 'voices/',// 创建路径
+        'subName'    => 'Y/m/d',// 上传子目录规则
+        'prefix'     => 'voice_',// 名称前缀
+    ],
+    // 文件上传配置
+    'filesUpload' => [
+        'maxSize'    => 1024 * 1024 * 50,// 最大上传大小,默认50M
+        'maxExc'     => [],// 可上传文件后缀不填写即为不限
+        'path'       => 'files/',// 创建路径
+        'subName'    => 'Y/m/d',// 上传子目录规则
+        'prefix'     => 'file_',// 名称前缀
+    ],
+    // 上传状态映射表
     'uploadState' => [
         "ERROR_TMP_FILE"           => "临时文件错误",
         "ERROR_TMP_FILE_NOT_FOUND" => "找不到临时文件",
@@ -66,4 +66,17 @@ return [
         "ERROR_HTTP_LINK"          => "链接不是http链接",
         "ERROR_HTTP_CONTENTTYPE"   => "链接contentType不正确"
     ],
+
+    /** ------ 微信配置 ------ **/
+
+    // 微信配置 具体可参考EasyWechat
+    'wechatConfig' => [],
+    // 微信支付配置 具体可参考EasyWechat
+    'wechatPaymentConfig' => [],
+    // 微信小程序配置 具体可参考EasyWechat
+    'wechatMiniProgramConfig' => [],
+    // 微信开放平台第三方平台配置 具体可参考EasyWechat
+    'wechatOpenPlatformConfig' => [],
+    // 微信企业微信配置 具体可参考EasyWechat
+    'wechatWorkConfig' => [],
 ];

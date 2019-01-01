@@ -10,6 +10,7 @@ use jianyan\basics\backend\modules\sys\models\LoginForm;
 
 /**
  * 站点控制器
+ *
  * Class SiteController
  * @package backend\controllers
  */
@@ -17,12 +18,14 @@ class SiteController extends Controller
 {
     /**
      * 默认布局文件
+     *
      * @var string
      */
     public $layout  = "default";
 
     /**
      * 统一加载
+     *
      * @return array
      */
     public function actions()
@@ -31,24 +34,25 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            //验证码
+            // 验证码
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'maxLength' => 5,        //最大显示个数
-                'minLength' => 5,        //最少显示个数
-                'padding'   => 5,        //间距
-                'height'    => 32,       //高度
-                'width'     => 100,      //宽度
-                'offset'    => 4,        //设置字符偏移量
-                'backColor' => 0xffffff, //背景颜色
-                'foreColor' => 0x1ab394, //字体颜色
+                'maxLength' => 5,        // 最大显示个数
+                'minLength' => 5,        // 最少显示个数
+                'padding'   => 5,        // 间距
+                'height'    => 32,       // 高度
+                'width'     => 100,      // 宽度
+                'offset'    => 4,        // 设置字符偏移量
+                'backColor' => 0xffffff, // 背景颜色
+                'foreColor' => 0x1ab394, // 字体颜色
             ]
         ];
     }
 
     /**
      * 行为控制
+     *
      */
     public function behaviors()
     {
@@ -59,11 +63,11 @@ class SiteController extends Controller
                     [
                         'actions' => ['login', 'error','captcha'],
                         'allow' => true,
-                        'roles' => ['?'],//游客
+                        'roles' => ['?'],// 游客
                     ],
                     [
                         'allow' => true,
-                        'roles' => ['@'],//登录
+                        'roles' => ['@'],// 登录
                     ],
                 ],
             ],
@@ -78,6 +82,7 @@ class SiteController extends Controller
 
     /**
      * 后台登陆
+     *
      * @return string|\yii\web\Response
      */
     public function actionLogin()
@@ -90,7 +95,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login())
         {
-            //插入日志
+            // 插入日志
             Yii::$app->actionlog->addLog(ActionLog::ACTION_LOGIN,"manager");
 
             return $this->goHome();
@@ -103,13 +108,15 @@ class SiteController extends Controller
 
     /**
      * 退出登陆
+     *
      * @return \yii\web\Response
      */
     public function actionLogout()
     {
-        //插入日志
+        // 插入日志
         Yii::$app->actionlog->addLog(ActionLog::ACTION_LOGOUT,"manager");
         Yii::$app->user->logout();
+
         return $this->goHome();
     }
 }

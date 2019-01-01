@@ -27,6 +27,11 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE = 10;
 
     /**
+     * 规则
+     */
+    const ROLE_ADMIN = 10;
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -72,7 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * 通过用户名查找用户
      *
      * @param string $username
      * @return static|null
@@ -83,7 +88,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by password reset token
+     * 查找密码重置token
      *
      * @param string $token password reset token
      * @return static|null
@@ -101,7 +106,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds out if password reset token is valid
+     * 发现如果密码重置令牌是有效的
      *
      * @param string $token password reset token
      * @return boolean
@@ -136,6 +141,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * 验证授权码
+     *
      * @inheritdoc
      */
     public function validateAuthKey($authKey)
@@ -145,6 +151,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * 验证密码是否正确
+     *
      * @param $password
      * @return bool
      */
@@ -155,7 +162,9 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * 设置密码
+     *
      * @param $password
+     * @throws \yii\base\Exception
      */
     public function setPassword($password)
     {
@@ -164,6 +173,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * 设置授权码
+     *
+     * @throws \yii\base\Exception
      */
     public function generateAuthKey()
     {
@@ -172,6 +183,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * 设置密码重置秘钥
+     *
+     * @throws \yii\base\Exception
      */
     public function generatePasswordResetToken()
     {
